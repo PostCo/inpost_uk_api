@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    inpost_uk_api (0.1.1)
+    inpost_uk_api (0.2.0)
       activeresource (>= 6.0.0)
 
 GEM
