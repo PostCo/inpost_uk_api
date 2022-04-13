@@ -7,9 +7,10 @@ module InPostUKAPI
     DEFAULT_ATTRS = {
       sender_email: 'customer_email@inpost.co.uk',
       sender_phone: '7999999999',
-      size: 'A',
       customer_reference: 'customer reference number',
-      show_quick_send_code: 'true'
+      show_quick_send_code: 'false'
     }
+
+    validates_presence_of :sender_email, :sender_phone
   end
 end
