@@ -17,6 +17,15 @@ Or install it yourself as:
     $ gem install inpost_uk_api
 
 ## Usage
+### Configurations
+```ruby
+InPostUKAPI.configure do |config|
+    config.site = ENV['SITE']
+    config.retailer = ENV['RETAILER']
+    config.api_token = ENV['API_TOKEN']
+end
+```
+
 ### Returns
 #### Create a Returns Request
 Doc: https://developers.inpost.co.uk/#operation/createReturns
@@ -68,6 +77,26 @@ tracking = InPostUKAPI::Tracking.where("CS0000000009778;CS0000000009777;CSDDD")
 CSDDD_trackings = tracking.CSDDD
 CSDDD_trackings.error # => "No events found for consignment CSDDD"
 ```
+### Temporary credentials
+You can use the `InPostUKAPI::Base.with_account` method which accept a block to set a temporary credentials. Useful for platform to set different InPost account for each retailer.
+
+Applicable to [Create a Returns Request](#create-a-returns-request) and [Get Returns QR Code](#get-returns-qr-code).
+```ruby
+re, label = nil
+account = {retailer: "temp@postco.co", api_token: "temp token 123" }
+InPostUKAPI::Base.with_account(account) do
+    re = InPostUKAPI::Return.new(
+        sender_email: "sender@postco.co",
+        sender_phone: "7999999999",
+        size: "A",
+        customer_reference: "customer reference number",
+        show_quick_send_code: "true"
+    )
+    re.save
+    label = InPostUKAPI::ReturnLabel.find(re.id)
+end
+```
+
 
 ## Development
 
