@@ -78,13 +78,15 @@ CSDDD_trackings = tracking.CSDDD
 CSDDD_trackings.error # => "No events found for consignment CSDDD"
 ```
 ### Temporary credentials
-You can use the `InPostUKAPI::Base.with_account` method which accept a block to set a temporary credentials. Useful for platform to set different InPost account for each retailer.
+You can use the `InPostUKAPI::Base.with_account` method which applies the temporary credentials to the codes in the block. Useful for platform to set different InPost account for each retailer.
 
 Applicable to [Create a Returns Request](#create-a-returns-request) and [Get Returns QR Code](#get-returns-qr-code).
 ```ruby
 re, label = nil
 account = {retailer: "temp@postco.co", api_token: "temp token 123" }
 InPostUKAPI::Base.with_account(account) do
+    # Now, retailer = "temp@postco.co" and api_token = "temp token 123"
+
     re = InPostUKAPI::Return.new(
         sender_email: "sender@postco.co",
         sender_phone: "7999999999",
@@ -95,6 +97,7 @@ InPostUKAPI::Base.with_account(account) do
     re.save
     label = InPostUKAPI::ReturnLabel.find(re.id)
 end
+# Retailer and api_token now back to the one originally set.
 ```
 
 
