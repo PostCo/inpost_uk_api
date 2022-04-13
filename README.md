@@ -38,6 +38,18 @@ Doc: https://developers.inpost.co.uk/#operation/getReturnsLabel
 ```ruby
 label = InPostUKAPI::ReturnLabel.find("CS0000000009778")
 label # => a pdf blob string
+
+begin
+    invalid_label = InPostUKAPI::ReturnLabel.find("CS00000000ABC")
+rescue ActiveResource::ResourceNotFound => e
+    e.response.body # => "{\"status_code\":404,\"error_code\":\"return_not_found\",\"message\":\"Return CS0000000009778d not found.\",\"errors\":{}}"
+
+    # activeresource version >= 6.0.0
+    e.message # => Return CS00000000ABC not found.
+
+    # activeresource version < 6.0.0
+    e.message # => Failed.  Response code = 200.  Response message = OK.    
+end
 ```
 #### Request Tracking Data (only for PROD)
 The tracking data you got might not be the right one if you are querying using the Return id from the staging server.

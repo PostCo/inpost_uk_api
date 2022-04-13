@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    inpost_uk_api (0.2.0)
-      activeresource (>= 6.0.0)
+    inpost_uk_api (0.2.1)
+      activeresource (>= 4.1.0)
 
 GEM
   remote: https://rubygems.org/

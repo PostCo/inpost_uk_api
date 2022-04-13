@@ -1,6 +1,6 @@
 module InPostUKAPI
   class Configuration
-    attr_accessor :site, :retailer
+    attr_accessor :site, :retailer, :api_token
   end
 
   class << self
