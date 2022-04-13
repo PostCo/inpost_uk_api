@@ -51,8 +51,11 @@ rescue ActiveResource::ResourceNotFound => e
     e.message # => Failed.  Response code = 200.  Response message = OK.    
 end
 ```
-#### Request Tracking Data (only for PROD)
-The tracking data you got might not be the right one if you are querying using the Return id from the staging server.
+### Request Tracking Data
+This endpoint only available for PROD labels.
+
+The tracking data you got might not be the right one if you are querying using the tracking id from the staging server.
+
 Doc: https://developers.inpost.co.uk/#operation/getTracking
 ```ruby
 tracking = InPostUKAPI::Tracking.find("CS0000000009778")
